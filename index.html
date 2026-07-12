@@ -25,11 +25,11 @@
       <div class="hero-copy">
         <div>
           <p class="eyebrow">Climbing, distilled.</p>
-          <h1 id="hero-title">
-            <span>Grip.</span>
-            <span class="outline">Move.</span>
-            <span>Repeat.</span>
-          </h1>
+          <h1 id="hero-title" class="sr-only">DAB Block 01</h1>
+          <div class="model-stage" id="model-stage" aria-label="Interactive 3D model of DAB Block 01">
+            <canvas id="model-canvas"></canvas>
+            <div class="model-status" id="model-status" role="status" aria-live="polite">Loading model</div>
+          </div>
         </div>
 
         <div class="hero-bottom">
@@ -73,5 +73,14 @@
     </footer>
   </main>
   <script src="assets/js/main.js" defer></script>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/"
+      }
+    }
+  </script>
+  <script type="module" src="assets/js/model-viewer.js"></script>
 </body>
 </html>
