@@ -21,6 +21,8 @@ if (stage && canvas) {
   }
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 0.82;
 
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(36, 1, 0.01, 1000);
@@ -34,18 +36,18 @@ if (stage && canvas) {
   controls.autoRotate = true;
   controls.autoRotateSpeed = 0.45;
 
-  const keyLight = new THREE.DirectionalLight(0xffffff, 3.2);
+  const keyLight = new THREE.DirectionalLight(0xffffff, 1.9);
   keyLight.position.set(3, 4, 5);
   scene.add(keyLight);
 
-  const fillLight = new THREE.DirectionalLight(0xffffff, 1.8);
+  const fillLight = new THREE.DirectionalLight(0xffffff, 0.85);
   fillLight.position.set(-4, 1.5, 3);
   scene.add(fillLight);
-  scene.add(new THREE.HemisphereLight(0xffffff, 0xcfcfcf, 2.1));
+  scene.add(new THREE.HemisphereLight(0xffffff, 0xcfcfcf, 1.25));
 
   const material = new THREE.MeshStandardMaterial({
-    color: 0xf4f1ea,
-    roughness: 0.72,
+    color: 0x6d675a,
+    roughness: 0.68,
     metalness: 0.02
   });
 
@@ -59,6 +61,7 @@ if (stage && canvas) {
   }
 
   function fitModel(mesh) {
+    mesh.geometry.computeVertexNormals();
     mesh.geometry.computeBoundingBox();
     const box = mesh.geometry.boundingBox;
     const center = new THREE.Vector3();
@@ -68,8 +71,9 @@ if (stage && canvas) {
 
     mesh.geometry.translate(-center.x, -center.y, -center.z);
     const maxAxis = Math.max(size.x, size.y, size.z);
-    mesh.scale.setScalar(3.1 / maxAxis);
-    mesh.rotation.set(THREE.MathUtils.degToRad(-68), 0, THREE.MathUtils.degToRad(-22));
+    const targetSize = stage.clientWidth < 620 ? 1.82 : 2.35;
+    mesh.scale.setScalar(targetSize / maxAxis);
+    mesh.rotation.set(THREE.MathUtils.degToRad(-62), 0, THREE.MathUtils.degToRad(-22));
 
     controls.target.set(0, 0, 0);
     controls.update();
