@@ -185,10 +185,12 @@
 
     .intro {
       margin: 0;
+      width: 100%;
       max-width: 430px;
       font-size: clamp(15px, 1.3vw, 19px);
       line-height: 1.45;
       letter-spacing: -.015em;
+      overflow-wrap: break-word;
     }
 
     .index {
@@ -372,6 +374,7 @@
       .header-meta { gap: 16px; }
       .header-meta .edition { display: none; }
       .hero-copy { padding-top: 42px; }
+      .intro { max-width: 100%; }
       .model-stage { height: clamp(320px, 52vh, 520px); }
       .signup-panel { min-height: 560px; }
       .object-stage { min-height: 260px; }
