@@ -337,8 +337,14 @@
 
     .wordmark {
       display: block;
-      width: 40px;
+      width: 30px;
       height: auto;
+    }
+
+    .footer-meta {
+      margin-left: auto;
+      justify-content: flex-end;
+      text-align: right;
     }
 
     .footer-edition {
