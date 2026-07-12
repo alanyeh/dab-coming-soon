@@ -335,12 +335,6 @@
       border-top: 1px solid var(--line);
     }
 
-    .wordmark {
-      display: block;
-      width: 60px;
-      height: auto;
-    }
-
     .footer-meta {
       margin-left: auto;
       justify-content: flex-end;
