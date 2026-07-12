@@ -5,6 +5,7 @@
       --line: #d8d8d8;
       --pad: clamp(20px, 3vw, 44px);
       --block-color: #cbc3e3;
+      --block-label-color: #ffffff;
     }
 
     * { box-sizing: border-box; }
