@@ -332,18 +332,18 @@
     }
 
     .footer {
-      border-top: 1px solid var(--line);
+      justify-content: center;
     }
 
     .footer-meta {
-      margin-left: auto;
-      justify-content: flex-end;
-      text-align: right;
+      margin-inline: auto;
+      justify-content: center;
+      text-align: center;
     }
 
     .footer-edition {
       line-height: 1.5;
-      text-align: right;
+      text-align: center;
     }
 
     @media (max-width: 820px) {
