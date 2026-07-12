@@ -5,6 +5,9 @@ import { STLLoader } from "three/addons/loaders/STLLoader.js";
 const stage = document.querySelector("#model-stage");
 const canvas = document.querySelector("#model-canvas");
 const status = document.querySelector("#model-status");
+const blockColor = getComputedStyle(document.documentElement)
+  .getPropertyValue("--block-color")
+  .trim() || "#6d675a";
 
 if (stage && canvas) {
   let renderer;
@@ -46,7 +49,7 @@ if (stage && canvas) {
   scene.add(new THREE.HemisphereLight(0xffffff, 0xcfcfcf, 1.25));
 
   const material = new THREE.MeshStandardMaterial({
-    color: 0x6d675a,
+    color: new THREE.Color(blockColor),
     roughness: 0.68,
     metalness: 0.02
   });
@@ -71,7 +74,7 @@ if (stage && canvas) {
 
     mesh.geometry.translate(-center.x, -center.y, -center.z);
     const maxAxis = Math.max(size.x, size.y, size.z);
-    const targetSize = stage.clientWidth < 620 ? 2.18 : 2.82;
+    const targetSize = stage.clientWidth < 620 ? 1.95 : 2.82;
     mesh.scale.setScalar(targetSize / maxAxis);
     mesh.rotation.set(THREE.MathUtils.degToRad(-62), 0, THREE.MathUtils.degToRad(-22));
 
