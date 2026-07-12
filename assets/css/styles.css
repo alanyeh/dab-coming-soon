@@ -74,7 +74,7 @@
 
     .brand img {
       display: block;
-      width: 72px;
+      width: 79px;
       height: auto;
     }
 
@@ -361,7 +361,7 @@
     @media (max-width: 520px) {
       .header,
       .footer { padding-block: 18px; }
-      .brand img { width: 62px; }
+      .brand img { width: 68px; }
       .header-meta { gap: 16px; }
       .header-meta .edition { display: none; }
       .hero-copy { padding-top: 42px; }
