@@ -12,17 +12,17 @@ window.DAB_STORE = Object.freeze({
     variants: Object.freeze([
       Object.freeze({
         id: "hold-type-01",
-        name: "20 / 25 mm",
+        name: "Large Dab",
         description: "20 mm and 25 mm edges",
         price: "$40.00",
-        checkoutUrl: "https://buy.stripe.com/cNi00l9lb1C9fbkd334wM00"
+        checkoutUrl: "https://checkout.dabclimbing.com/b/cNi00l9lb1C9fbkd334wM00"
       }),
       Object.freeze({
         id: "hold-type-02",
-        name: "20 mm",
+        name: "Small Dab",
         description: "20 mm edge",
         price: "$30.00",
-        checkoutUrl: "https://buy.stripe.com/dRm4gB2WNdkR0gqaUV4wM01"
+        checkoutUrl: "https://checkout.dabclimbing.com/b/dRm4gB2WNdkR0gqaUV4wM01"
       })
     ])
   })
