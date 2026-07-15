@@ -56,6 +56,8 @@ To launch:
 
 With `enabled: false`, the homepage continues to show “Coming soon,” the shop link stays hidden, and checkout remains disabled. The full product preview is still available directly at `/buy/`.
 
+To smoke-test the configured live checkout links without launching the store, use `/buy/?checkout=1` on `localhost` or `127.0.0.1`. This switch never activates checkout on the production domain.
+
 ## Main editing locations
 
 - Page content and structure: `index.html`

@@ -1,5 +1,8 @@
 const store = window.DAB_STORE;
 const productPage = document.querySelector("#product-page");
+const isLocalCheckoutTest =
+  ["localhost", "127.0.0.1"].includes(window.location.hostname) &&
+  new URLSearchParams(window.location.search).has("checkout");
 
 function setText(selector, value) {
   const element = document.querySelector(selector);
@@ -95,7 +98,7 @@ if (store && productPage) {
         event.preventDefault();
       }
     });
-    renderVariants(product, checkoutButton, store.enabled);
+    renderVariants(product, checkoutButton, store.enabled || isLocalCheckoutTest);
   }
 
   productPage.hidden = false;
