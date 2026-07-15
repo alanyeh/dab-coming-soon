@@ -1,5 +1,5 @@
 window.DAB_STORE = Object.freeze({
-  enabled: false,
+  enabled: true,
   product: Object.freeze({
     name: "DAB Block 01",
     eyebrow: "First drop / 001",
