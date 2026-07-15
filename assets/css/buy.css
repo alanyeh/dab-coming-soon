@@ -182,14 +182,15 @@ body {
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 18px 0;
-  border-top: 1px solid var(--ink);
-  border-bottom: 1px solid var(--ink);
-  color: var(--ink);
+  padding: 18px 20px;
+  border: 1px solid var(--ink);
+  color: var(--paper);
+  background: var(--ink);
   font-size: 11px;
   letter-spacing: .13em;
   text-decoration: none;
   text-transform: uppercase;
+  transition: background-color .2s ease, border-color .2s ease;
 }
 
 .buy-button span:last-child {
@@ -201,8 +202,22 @@ body {
   transform: translateX(4px);
 }
 
+.buy-button:hover,
+.buy-button:focus-visible {
+  background: #2b2b2b;
+  border-color: #2b2b2b;
+}
+
+.buy-button:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
 .buy-button[aria-disabled="true"] {
-  color: var(--soft);
+  color: var(--paper);
+  background: var(--ink);
+  border-color: var(--ink);
+  opacity: .45;
   cursor: not-allowed;
 }
 
