@@ -14,14 +14,14 @@ window.DAB_STORE = Object.freeze({
         id: "hold-type-01",
         name: "20 / 25 mm",
         description: "20 mm and 25 mm edges",
-        price: "",
+        price: "$40.00",
         checkoutUrl: ""
       }),
       Object.freeze({
         id: "hold-type-02",
         name: "20 mm",
         description: "20 mm edge",
-        price: "",
+        price: "$30.00",
         checkoutUrl: ""
       })
     ])
