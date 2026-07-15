@@ -44,6 +44,18 @@ The form currently behaves as a demo:
 - When `FORM_ENDPOINT` in `assets/js/main.js` is blank, the submitted email is stored in `localStorage`.
 - To make it production-ready, set `FORM_ENDPOINT` to a Formspree, Basin, custom API, or other form endpoint.
 
+## Store launch
+
+The product page is scaffolded at `/buy/` but remains closed by default. Store settings live in `assets/js/store-config.js`.
+
+To launch:
+
+1. Add the final product copy, hold names, prices, shipping, and returns details to `store-config.js`.
+2. Set each hold option's `checkoutUrl` to its HTTPS Stripe Payment Link.
+3. Change `enabled` from `false` to `true`.
+
+With `enabled: false`, the homepage continues to show “Coming soon,” the shop link stays hidden, and checkout remains disabled. The full product preview is still available directly at `/buy/`.
+
 ## Main editing locations
 
 - Page content and structure: `index.html`

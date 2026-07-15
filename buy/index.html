@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="description" content="DAB Block 01 — first drop." />
+  <title>DAB — Block 01</title>
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+  <link rel="stylesheet" href="/assets/css/buy.css" />
+</head>
+<body class="store-page">
+  <main class="store-shell">
+    <header class="header">
+      <a class="brand" href="/" aria-label="DAB home">
+        <img src="/assets/images/dab-logo.svg" alt="DAB" />
+      </a>
+      <div class="header-meta">
+        <span>First drop</span>
+      </div>
+    </header>
+
+    <section class="buy-layout" id="product-page" hidden aria-labelledby="product-name">
+      <div class="buy-media">
+        <div class="model-stage" id="model-stage" aria-label="Interactive 3D model of DAB Block 01">
+          <canvas id="model-canvas"></canvas>
+          <div class="model-status" id="model-status" role="status" aria-live="polite">Loading model</div>
+        </div>
+      </div>
+
+      <div class="buy-details">
+        <p class="buy-eyebrow" id="product-eyebrow">First drop / 001</p>
+        <div class="buy-title-row">
+          <h1 id="product-name">DAB Block 01</h1>
+          <p class="buy-price" id="product-price" hidden></p>
+        </div>
+        <p class="buy-description" id="product-description"></p>
+        <fieldset class="variant-picker" id="variant-picker" hidden>
+          <legend>Choose hold type</legend>
+          <div class="variant-options" id="variant-options"></div>
+        </fieldset>
+        <p class="buy-availability" id="product-availability">Limited first run</p>
+        <a class="buy-button" id="checkout-button" aria-disabled="true">
+          <span>Buy now</span>
+          <span aria-hidden="true">↗</span>
+        </a>
+        <dl class="buy-meta">
+          <div>
+            <dt>Shipping</dt>
+            <dd id="product-shipping"></dd>
+          </div>
+          <div>
+            <dt>Returns</dt>
+            <dd id="product-returns"></dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-meta">
+        <span class="footer-edition">NY / 2026</span>
+      </div>
+    </footer>
+  </main>
+
+  <script src="/assets/js/store-config.js"></script>
+  <script src="/assets/js/buy.js" defer></script>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/"
+      }
+    }
+  </script>
+</body>
+</html>

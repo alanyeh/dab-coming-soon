@@ -8,9 +8,6 @@ const status = document.querySelector("#model-status");
 const blockColor = getComputedStyle(document.documentElement)
   .getPropertyValue("--block-color")
   .trim() || "#6d675a";
-const blockLabelColor = getComputedStyle(document.documentElement)
-  .getPropertyValue("--block-label-color")
-  .trim() || "#ffffff";
 
 if (stage && canvas) {
   let renderer;
@@ -59,50 +56,6 @@ if (stage && canvas) {
 
   let model = null;
 
-  function createLabel(text) {
-    const textureCanvas = document.createElement("canvas");
-    textureCanvas.width = 512;
-    textureCanvas.height = 160;
-
-    const context = textureCanvas.getContext("2d");
-    context.clearRect(0, 0, textureCanvas.width, textureCanvas.height);
-    context.fillStyle = blockLabelColor;
-    context.font = "700 87px Arial, Helvetica, sans-serif";
-    context.textAlign = "center";
-    context.textBaseline = "middle";
-    context.fillText(text, textureCanvas.width / 2, textureCanvas.height / 2);
-
-    const texture = new THREE.CanvasTexture(textureCanvas);
-    texture.colorSpace = THREE.SRGBColorSpace;
-    texture.anisotropy = Math.min(renderer.capabilities.getMaxAnisotropy(), 8);
-
-    const material = new THREE.MeshBasicMaterial({
-      map: texture,
-      transparent: true,
-      depthWrite: false,
-      polygonOffset: true,
-      polygonOffsetFactor: -1,
-      side: THREE.DoubleSide
-    });
-
-    return new THREE.Mesh(new THREE.PlaneGeometry(30, 9.375), material);
-  }
-
-  function addTopLabels(mesh, size) {
-    const topZ = size.z / 2 + 0.2;
-    const labels = [
-      { text: "20 mm", position: [19, 18, topZ], rotation: -0.03 },
-      { text: "25 mm", position: [-11, -18, topZ], rotation: -0.02 }
-    ];
-
-    labels.forEach(({ text, position, rotation }) => {
-      const label = createLabel(text);
-      label.position.set(...position);
-      label.rotation.z = rotation;
-      mesh.add(label);
-    });
-  }
-
   function resize() {
     const { width, height } = stage.getBoundingClientRect();
     renderer.setSize(width, height, false);
@@ -124,14 +77,13 @@ if (stage && canvas) {
     const targetSize = stage.clientWidth < 620 ? 1.95 : 2.82;
     mesh.scale.setScalar(targetSize / maxAxis);
     mesh.rotation.set(THREE.MathUtils.degToRad(-62), 0, THREE.MathUtils.degToRad(-22));
-    addTopLabels(mesh, size);
 
     controls.target.set(0, 0, 0);
     controls.update();
   }
 
   new STLLoader().load(
-    "assets/models/DAB-BLOCK-01.stl",
+    "/assets/models/DAB-BLOCK-01.stl",
     (geometry) => {
       model = new THREE.Mesh(geometry, material);
       fitModel(model);

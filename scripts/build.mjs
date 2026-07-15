@@ -5,6 +5,8 @@ await mkdir("dist/server", { recursive: true });
 await mkdir("dist/.openai", { recursive: true });
 
 await cp("index.html", "dist/index.html");
+await cp("buy", "dist/buy", { recursive: true });
+await cp("thank-you", "dist/thank-you", { recursive: true });
 await cp("assets", "dist/assets", { recursive: true });
 await cp(".openai/hosting.json", "dist/.openai/hosting.json");
 
