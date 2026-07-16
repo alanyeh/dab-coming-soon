@@ -27,6 +27,36 @@
           <div class="model-stage" id="model-stage" aria-label="Interactive 3D model of DAB Block 01">
             <canvas id="model-canvas"></canvas>
             <div class="model-status" id="model-status" role="status" aria-live="polite">Loading model</div>
+            <div class="model-tools">
+              <section class="model-configurator" id="model-configurator" aria-label="Product finish editor">
+                <div class="configurator-heading">
+                  <div>
+                    <span class="configurator-kicker">Block 01 / Finish study</span>
+                    <h2>Make it yours.</h2>
+                  </div>
+                </div>
+
+                <div class="finish-colors">
+                  <label class="finish-color" for="body-color">
+                    <span>Primary</span>
+                    <span class="color-value" id="body-color-value">#DC9292</span>
+                    <input id="body-color" type="color" value="#dc9292" aria-label="Primary color" />
+                  </label>
+                  <label class="finish-color" for="accent-color">
+                    <span>Accent</span>
+                    <span class="color-value" id="accent-color-value">#443D5E</span>
+                    <input id="accent-color" type="color" value="#443d5e" aria-label="Accent color" />
+                  </label>
+                </div>
+
+                <p class="configurator-hint">Accent color is applied to the inset and product lettering.</p>
+              </section>
+            </div>
+            <div class="model-view-controls" aria-label="3D view controls">
+              <button id="zoom-out" type="button" aria-label="Zoom out">−</button>
+              <button id="zoom-in" type="button" aria-label="Zoom in">+</button>
+              <button id="spin-toggle" type="button" aria-pressed="true">Spin on</button>
+            </div>
           </div>
         </div>
 
