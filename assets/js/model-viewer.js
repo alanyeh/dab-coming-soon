@@ -12,8 +12,11 @@ const bodyValue = document.querySelector("#body-color-value");
 const accentValue = document.querySelector("#accent-color-value");
 const zoomOut = document.querySelector("#zoom-out");
 const zoomIn = document.querySelector("#zoom-in");
-const spinToggle = document.querySelector("#spin-toggle");
-const modelUrl = new URL("../models/DAB-BLOCK-01.3mf", import.meta.url);
+const spinSpeed = document.querySelector("#spin-speed");
+const defaultModelUrl = new URL("../models/DAB-BLOCK-01.3mf", import.meta.url).href;
+const minimumSpinSpeed = 0.1;
+const maximumSpinSpeed = 100;
+const mediumSpinSpeed = Math.sqrt(minimumSpinSpeed * maximumSpinSpeed);
 const blockColor = getComputedStyle(document.documentElement)
   .getPropertyValue("--block-color")
   .trim() || "#dc9292";
@@ -43,7 +46,7 @@ if (stage && canvas) {
   controls.minDistance = 2.5;
   controls.maxDistance = 8;
   controls.autoRotate = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  controls.autoRotateSpeed = 0.45;
+  controls.autoRotateSpeed = mediumSpinSpeed;
 
   const keyLight = new THREE.DirectionalLight(0xffffff, 1.9);
   keyLight.position.set(3, 4, 5);
@@ -56,15 +59,52 @@ if (stage && canvas) {
 
   const bodyColor = new THREE.Color(bodyInput?.value || blockColor);
   const accentColor = new THREE.Color(accentInput?.value || "#443d5e");
+  const accentDisplayColor = new THREE.Vector3();
+
+  function updateAccentDisplayColor(hexColor) {
+    const value = Number.parseInt(hexColor.slice(1), 16);
+    accentDisplayColor.set(
+      ((value >> 16) & 255) / 255,
+      ((value >> 8) & 255) / 255,
+      (value & 255) / 255
+    );
+  }
+
+  updateAccentDisplayColor(accentInput?.value || "#443d5e");
+
   const material = new THREE.MeshStandardMaterial({
     vertexColors: true,
     roughness: 0.68,
     metalness: 0.02
   });
+  material.onBeforeCompile = (shader) => {
+    shader.uniforms.dabAccentLinear = { value: accentColor };
+    shader.uniforms.dabAccentDisplay = { value: accentDisplayColor };
+    shader.fragmentShader = shader.fragmentShader.replace(
+      "void main() {",
+      `
+        uniform vec3 dabAccentLinear;
+        uniform vec3 dabAccentDisplay;
+        void main() {
+      `
+    );
+    shader.fragmentShader = shader.fragmentShader.replace(
+      "#include <dithering_fragment>",
+      `
+        float dabIsAccent = 1.0 - step(0.001, distance(diffuseColor.rgb, dabAccentLinear));
+        gl_FragColor.rgb = mix(gl_FragColor.rgb, dabAccentDisplay, dabIsAccent);
+        float dabPureWhite = step(0.999, min(diffuseColor.r, min(diffuseColor.g, diffuseColor.b)));
+        gl_FragColor.rgb = mix(gl_FragColor.rgb, vec3(1.0), dabPureWhite);
+        #include <dithering_fragment>
+      `
+    );
+  };
+  material.customProgramCacheKey = () => "dab-pure-white-v1";
 
   let model = null;
   let accentMask = null;
   let triangleCount = 0;
+  let loadSequence = 0;
 
   function readAccentMask(buffer) {
     const files = unzipSync(new Uint8Array(buffer));
@@ -117,14 +157,21 @@ if (stage && canvas) {
     const targetSize = stage.clientWidth < 620 ? 1.95 : 2.82;
     mesh.scale.setScalar(targetSize / maxAxis);
     mesh.rotation.set(THREE.MathUtils.degToRad(-62), 0, THREE.MathUtils.degToRad(-22));
+    mesh.position.y = 0.55;
 
     controls.target.set(0, 0, 0);
     controls.update();
   }
 
-  async function loadModel() {
+  async function loadModel(url) {
+    const sequence = ++loadSequence;
+    if (status) {
+      status.hidden = false;
+      status.textContent = "Loading model";
+    }
+
     try {
-      const response = await fetch(modelUrl);
+      const response = await fetch(url);
       if (!response.ok) throw new Error(`Model request failed: ${response.status}`);
       const buffer = await response.arrayBuffer();
       const loadedModel = new ThreeMFLoader().parse(buffer);
@@ -138,19 +185,32 @@ if (stage && canvas) {
       geometry = geometry.toNonIndexed();
       geometry.computeVertexNormals();
 
-      triangleCount = geometry.getAttribute("position").count / 3;
+      const nextTriangleCount = geometry.getAttribute("position").count / 3;
       const paintedTriangles = readAccentMask(buffer);
-      accentMask = paintedTriangles?.length === triangleCount
+      const nextAccentMask = paintedTriangles?.length === nextTriangleCount
         ? paintedTriangles
-        : new Uint8Array(triangleCount);
-      geometry.setAttribute("color", new THREE.BufferAttribute(new Float32Array(triangleCount * 9), 3));
+        : new Uint8Array(nextTriangleCount);
+      geometry.setAttribute("color", new THREE.BufferAttribute(new Float32Array(nextTriangleCount * 9), 3));
+
+      if (sequence !== loadSequence) {
+        geometry.dispose();
+        return;
+      }
+
+      if (model) {
+        scene.remove(model);
+        model.geometry.dispose();
+      }
 
       model = new THREE.Mesh(geometry, material);
+      triangleCount = nextTriangleCount;
+      accentMask = nextAccentMask;
       fitModel(model);
       scene.add(model);
       updateVertexColors();
       if (status) status.hidden = true;
     } catch (error) {
+      if (sequence !== loadSequence) return;
       if (status) status.textContent = "Model unavailable";
       console.error(error);
     }
@@ -175,6 +235,7 @@ if (stage && canvas) {
 
   accentInput?.addEventListener("input", () => {
     accentColor.set(accentInput.value);
+    updateAccentDisplayColor(accentInput.value);
     if (accentValue) accentValue.textContent = accentInput.value.toUpperCase();
     updateVertexColors();
   });
@@ -182,20 +243,20 @@ if (stage && canvas) {
   zoomOut?.addEventListener("click", () => zoom(1.18));
   zoomIn?.addEventListener("click", () => zoom(0.84));
 
-  spinToggle?.addEventListener("click", () => {
-    controls.autoRotate = !controls.autoRotate;
-    spinToggle.setAttribute("aria-pressed", String(controls.autoRotate));
-    spinToggle.textContent = controls.autoRotate ? "Spin on" : "Spin off";
+  spinSpeed?.addEventListener("input", () => {
+    controls.autoRotate = true;
+    const sliderProgress = Number(spinSpeed.value) / 100;
+    controls.autoRotateSpeed = minimumSpinSpeed * ((maximumSpinSpeed / minimumSpinSpeed) ** sliderProgress);
   });
 
-  if (spinToggle) {
-    spinToggle.setAttribute("aria-pressed", String(controls.autoRotate));
-    spinToggle.textContent = controls.autoRotate ? "Spin on" : "Spin off";
-  }
+  window.addEventListener("dab:model-change", (event) => {
+    if (event.detail?.modelUrl) loadModel(event.detail.modelUrl);
+  });
 
   resize();
   window.addEventListener("resize", resize);
-  loadModel();
+  const selectedModelUrl = document.querySelector('input[name="hold-type"]:checked')?.dataset.modelUrl;
+  loadModel(selectedModelUrl || defaultModelUrl);
 
   function animate() {
     controls.update();

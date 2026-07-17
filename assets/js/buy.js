@@ -9,13 +9,6 @@ function setText(selector, value) {
   if (element && value) element.textContent = value;
 }
 
-function setPrice(value) {
-  const price = document.querySelector("#product-price");
-  if (!price) return;
-  price.textContent = value || "";
-  price.hidden = !value;
-}
-
 function setCheckout(checkoutButton, checkoutUrl) {
   checkoutButton.removeAttribute("href");
   checkoutButton.setAttribute("aria-disabled", "true");
@@ -37,6 +30,13 @@ function renderVariants(product, checkoutButton, salesEnabled) {
   const picker = document.querySelector("#variant-picker");
   const options = document.querySelector("#variant-options");
   const variants = Array.isArray(product.variants) ? product.variants : [];
+  const configuratorSize = document.querySelector("#configurator-size");
+
+  function setConfiguratorSize(variant) {
+    if (configuratorSize && variant?.name) {
+      configuratorSize.textContent = variant.name;
+    }
+  }
 
   if (!picker || !options || !variants.length) {
     setCheckout(checkoutButton, salesEnabled ? product.checkoutUrl : "");
@@ -51,6 +51,7 @@ function renderVariants(product, checkoutButton, salesEnabled) {
     input.type = "radio";
     input.name = "hold-type";
     input.value = variant.id;
+    input.dataset.modelUrl = variant.modelUrl || "";
     input.checked = index === 0;
 
     const copy = document.createElement("span");
@@ -60,22 +61,33 @@ function renderVariants(product, checkoutButton, salesEnabled) {
     name.className = "variant-name";
     name.textContent = variant.name;
 
+    const price = document.createElement("span");
+    price.className = "variant-price";
+    price.textContent = variant.price || product.price || "";
+
+    const heading = document.createElement("span");
+    heading.className = "variant-heading";
+    heading.append(name, price);
+
     const description = document.createElement("span");
     description.className = "variant-description";
     description.textContent = variant.description;
 
-    copy.append(name, description);
+    copy.append(heading, description);
     label.append(input, copy);
     options.append(label);
 
     input.addEventListener("change", () => {
-      setPrice(variant.price || product.price);
+      setConfiguratorSize(variant);
       setCheckout(checkoutButton, salesEnabled ? variant.checkoutUrl : "");
+      window.dispatchEvent(new CustomEvent("dab:model-change", {
+        detail: { modelUrl: variant.modelUrl }
+      }));
     });
   });
 
   const initialVariant = variants[0];
-  setPrice(initialVariant.price || product.price);
+  setConfiguratorSize(initialVariant);
   setCheckout(checkoutButton, salesEnabled ? initialVariant.checkoutUrl : "");
   picker.hidden = false;
 }
@@ -85,7 +97,6 @@ if (store && productPage) {
 
   setText("#product-name", product.name);
   setText("#product-eyebrow", product.eyebrow);
-  setPrice(product.price);
   setText("#product-description", product.description);
   setText("#product-availability", product.availability);
   setText("#product-shipping", product.shipping);
@@ -102,5 +113,5 @@ if (store && productPage) {
   }
 
   productPage.hidden = false;
-  requestAnimationFrame(() => import("/assets/js/model-viewer.js"));
+  requestAnimationFrame(() => import("/assets/js/model-viewer.js?v=20260717-4"));
 }

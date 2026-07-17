@@ -6,8 +6,8 @@
   <meta name="theme-color" content="#ffffff" />
   <meta name="description" content="DAB Block 01 — first drop." />
   <title>DAB — Block 01</title>
-  <link rel="stylesheet" href="/assets/css/styles.css" />
-  <link rel="stylesheet" href="/assets/css/buy.css" />
+  <link rel="stylesheet" href="/assets/css/styles.css?v=20260717-5" />
+  <link rel="stylesheet" href="/assets/css/buy.css?v=20260717-5" />
 </head>
 <body class="store-page">
   <main class="store-shell">
@@ -15,75 +15,65 @@
       <a class="brand" href="/" aria-label="DAB home">
         <img src="/assets/images/dab-logo.svg" alt="DAB" />
       </a>
-      <div class="header-meta">
-        <span>First drop</span>
-      </div>
     </header>
 
     <section class="buy-layout" id="product-page" hidden aria-labelledby="product-name">
       <div class="buy-media">
-        <div class="model-tools">
-          <section class="model-configurator" id="model-configurator" aria-label="Product finish editor">
-            <div class="configurator-heading">
-              <div>
-                <span class="configurator-kicker">Block 01 / Finish study</span>
-                <h2>Make it yours.</h2>
-              </div>
-            </div>
-
-            <div class="finish-colors">
-              <label class="finish-color" for="body-color">
-                <span>Primary</span>
-                <span class="color-value" id="body-color-value">#DC9292</span>
-                <input id="body-color" type="color" value="#dc9292" aria-label="Primary color" />
-              </label>
-              <label class="finish-color" for="accent-color">
-                <span>Accent</span>
-                <span class="color-value" id="accent-color-value">#443D5E</span>
-                <input id="accent-color" type="color" value="#443d5e" aria-label="Accent color" />
-              </label>
-            </div>
-
-          </section>
-        </div>
-
         <div class="model-stage" id="model-stage" aria-label="Interactive 3D model of DAB Block 01">
           <canvas id="model-canvas"></canvas>
           <div class="model-status" id="model-status" role="status" aria-live="polite">Loading model</div>
+          <div class="model-tools">
+            <section class="model-configurator" id="model-configurator" aria-label="Product finish editor">
+              <div class="configurator-heading">
+                <div>
+                  <h2>Make it yours</h2>
+                  <span class="configurator-kicker" id="configurator-size">Large Dab</span>
+                </div>
+              </div>
+              <div class="finish-colors">
+                <label class="finish-color" for="body-color"><span>Primary</span><span class="color-value" id="body-color-value">#DC9292</span><input id="body-color" type="color" value="#dc9292" aria-label="Primary color" /></label>
+                <label class="finish-color" for="accent-color"><span>Accent</span><span class="color-value" id="accent-color-value">#443D5E</span><input id="accent-color" type="color" value="#443d5e" aria-label="Accent color" /></label>
+              </div>
+            </section>
+          </div>
           <div class="model-view-controls" aria-label="3D view controls">
-            <button id="zoom-out" type="button" aria-label="Zoom out">−</button>
-            <button id="zoom-in" type="button" aria-label="Zoom in">+</button>
-            <button id="spin-toggle" type="button" aria-pressed="true">Spin on</button>
+            <div class="zoom-controls" aria-label="Zoom controls">
+              <button id="zoom-out" type="button" aria-label="Zoom out">−</button>
+              <button id="zoom-in" type="button" aria-label="Zoom in">+</button>
+            </div>
+            <label class="spin-speed" for="spin-speed">
+              <span>Spin</span>
+              <input id="spin-speed" type="range" min="0" max="100" step="1" value="50" aria-label="Spin speed" />
+            </label>
           </div>
         </div>
       </div>
 
       <div class="buy-details">
-        <p class="buy-eyebrow" id="product-eyebrow">First drop / 001</p>
+        <p class="buy-eyebrow" id="product-eyebrow">Limited first run</p>
         <div class="buy-title-row">
           <h1 id="product-name">DAB Block 01</h1>
-          <p class="buy-price" id="product-price" hidden></p>
         </div>
-        <p class="buy-description" id="product-description"></p>
         <fieldset class="variant-picker" id="variant-picker" hidden>
           <legend>Choose hold type</legend>
           <div class="variant-options" id="variant-options"></div>
         </fieldset>
-        <p class="buy-availability" id="product-availability">Limited first run</p>
-        <a class="buy-button" id="checkout-button" aria-disabled="true">
-          <span>Buy now</span>
-          <span aria-hidden="true">↗</span>
-        </a>
-        <dl class="buy-meta">
-          <div>
-            <dt>Shipping</dt>
-            <dd id="product-shipping"></dd>
-          </div>
-          <div>
-            <dt>Returns</dt>
-            <dd id="product-returns"></dd>
-          </div>
-        </dl>
+        <div class="buy-purchase">
+          <a class="buy-button" id="checkout-button" aria-disabled="true">
+            <span>Pre-order</span>
+            <span aria-hidden="true">↗</span>
+          </a>
+          <dl class="buy-meta">
+            <div>
+              <dt>Shipping</dt>
+              <dd id="product-shipping"></dd>
+            </div>
+            <div>
+              <dt>Returns</dt>
+              <dd id="product-returns"></dd>
+            </div>
+          </dl>
+        </div>
       </div>
     </section>
 
@@ -95,7 +85,7 @@
   </main>
 
   <script src="/assets/js/store-config.js"></script>
-  <script src="/assets/js/buy.js" defer></script>
+  <script src="/assets/js/buy.js?v=20260717-4" defer></script>
   <script type="importmap">
     {
       "imports": {

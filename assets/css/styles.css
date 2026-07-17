@@ -206,10 +206,21 @@
       right: var(--pad);
       bottom: clamp(20px, 3vw, 34px);
       display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
       flex: 0 0 auto;
+      pointer-events: auto;
+    }
+
+    .zoom-controls,
+    .spin-speed {
       border: 1px solid var(--ink);
       background: rgba(255, 255, 255, .96);
-      pointer-events: auto;
+    }
+
+    .zoom-controls {
+      display: flex;
     }
 
     .model-view-controls button {
@@ -223,13 +234,55 @@
     }
 
     .model-view-controls button:last-child {
-      padding-inline: 22px;
       border-right: 0;
     }
 
-    .model-view-controls button[aria-pressed="true"] {
-      color: var(--paper);
+    .spin-speed {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 16px;
+      font-size: 9px;
+      line-height: 1;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+    }
+
+    .spin-speed input {
+      width: 92px;
+      height: 16px;
+      margin: 0;
+      appearance: none;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .spin-speed input::-webkit-slider-runnable-track {
+      height: 2px;
       background: var(--ink);
+    }
+
+    .spin-speed input::-webkit-slider-thumb {
+      width: 12px;
+      height: 12px;
+      margin-top: -5px;
+      appearance: none;
+      border: 1px solid var(--ink);
+      border-radius: 50%;
+      background: var(--paper);
+    }
+
+    .spin-speed input::-moz-range-track {
+      height: 2px;
+      background: var(--ink);
+    }
+
+    .spin-speed input::-moz-range-thumb {
+      width: 12px;
+      height: 12px;
+      border: 1px solid var(--ink);
+      border-radius: 50%;
+      background: var(--paper);
     }
 
     .model-configurator {
@@ -318,7 +371,8 @@
 
     .model-tools button:focus-visible,
     .model-tools input:focus-visible,
-    .model-view-controls button:focus-visible {
+    .model-view-controls button:focus-visible,
+    .model-view-controls input:focus-visible {
       outline: 2px solid var(--ink);
       outline-offset: 3px;
     }
