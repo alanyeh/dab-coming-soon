@@ -1,7 +1,7 @@
 window.DAB_STORE = Object.freeze({
   enabled: true,
   product: Object.freeze({
-    name: "DAB BLOCKS",
+    name: "Dab Block",
     eyebrow: "Limited first run",
     price: "",
     shipping: "Shipping details announced at launch.",

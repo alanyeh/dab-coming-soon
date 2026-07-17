@@ -137,7 +137,7 @@ body {
   font-size: clamp(32px, 4vw, 64px);
   line-height: .94;
   letter-spacing: 0;
-  text-transform: uppercase;
+  text-transform: none;
 }
 
 .buy-description {
