@@ -331,7 +331,11 @@
       text-transform: uppercase;
     }
 
-    .configurator-kicker { color: var(--soft); }
+    .configurator-kicker {
+      color: var(--soft);
+      font-size: 20px;
+      letter-spacing: -.035em;
+    }
 
     .configurator-heading h2 {
       margin: 5px 0 0;
@@ -632,7 +636,8 @@
         width: calc(100vw - (var(--pad) * 2));
         padding: 16px;
       }
-      .configurator-heading h2 { font-size: 17px; }
+      .configurator-heading h2,
+      .configurator-kicker { font-size: 17px; }
       .finish-colors { margin-top: 14px; }
       .finish-color {
         min-height: 54px;

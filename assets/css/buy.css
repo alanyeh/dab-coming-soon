@@ -74,6 +74,10 @@ body {
 
 .buy-media > .model-tools .configurator-heading h2 {
   margin: 0 0 3px;
+}
+
+.buy-media > .model-tools .configurator-heading h2,
+.buy-media > .model-tools .configurator-kicker {
   font-size: 17px;
 }
 
