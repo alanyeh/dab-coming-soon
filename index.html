@@ -6,8 +6,8 @@
   <meta name="theme-color" content="#ffffff" />
   <meta name="description" content="DAB Block 01 — first drop." />
   <title>DAB — Block 01</title>
-  <link rel="stylesheet" href="/assets/css/styles.css?v=20260717-5" />
-  <link rel="stylesheet" href="/assets/css/buy.css?v=20260717-5" />
+  <link rel="stylesheet" href="/assets/css/styles.css?v=20260717-6" />
+  <link rel="stylesheet" href="/assets/css/buy.css?v=20260717-6" />
 </head>
 <body class="store-page">
   <main class="store-shell">
@@ -38,8 +38,8 @@
           </div>
           <div class="model-view-controls" aria-label="3D view controls">
             <div class="zoom-controls" aria-label="Zoom controls">
-              <button id="zoom-out" type="button" aria-label="Zoom out">−</button>
               <button id="zoom-in" type="button" aria-label="Zoom in">+</button>
+              <button id="zoom-out" type="button" aria-label="Zoom out">−</button>
             </div>
             <label class="spin-speed" for="spin-speed">
               <span>Spin</span>
@@ -58,11 +58,13 @@
           <legend>Choose hold type</legend>
           <div class="variant-options" id="variant-options"></div>
         </fieldset>
+        <dl class="product-specs" aria-label="Customization and product details">
+          <div><dt>Finish</dt><dd>Custom primary + accent colors</dd></div>
+          <div><dt>Edge depth</dt><dd>Custom sizes available</dd></div>
+          <div><dt>Estimated max static load</dt><dd>100 kg / 220 lb*</dd></div>
+        </dl>
+        <p class="load-disclaimer">*Placeholder estimate pending physical testing. Not a certified load or life-safety rating.</p>
         <div class="buy-purchase">
-          <a class="buy-button" id="checkout-button" aria-disabled="true">
-            <span>Pre-order</span>
-            <span aria-hidden="true">↗</span>
-          </a>
           <dl class="buy-meta">
             <div>
               <dt>Shipping</dt>
@@ -73,6 +75,10 @@
               <dd id="product-returns"></dd>
             </div>
           </dl>
+          <a class="buy-button" id="checkout-button" aria-disabled="true">
+            <span>Pre-order</span>
+            <span aria-hidden="true">↗</span>
+          </a>
         </div>
       </div>
     </section>
@@ -84,8 +90,8 @@
     </footer>
   </main>
 
-  <script src="/assets/js/store-config.js"></script>
-  <script src="/assets/js/buy.js?v=20260717-4" defer></script>
+  <script src="/assets/js/store-config.js?v=20260717-5"></script>
+  <script src="/assets/js/buy.js?v=20260717-5" defer></script>
   <script type="importmap">
     {
       "imports": {

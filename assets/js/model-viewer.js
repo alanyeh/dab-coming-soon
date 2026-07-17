@@ -154,7 +154,7 @@ if (stage && canvas) {
 
     mesh.geometry.translate(-center.x, -center.y, -center.z);
     const maxAxis = Math.max(size.x, size.y, size.z);
-    const targetSize = stage.clientWidth < 620 ? 1.95 : 2.82;
+    const targetSize = stage.clientWidth < 620 ? 1.75 : 2.55;
     mesh.scale.setScalar(targetSize / maxAxis);
     mesh.rotation.set(THREE.MathUtils.degToRad(-62), 0, THREE.MathUtils.degToRad(-22));
     mesh.position.y = 0.55;

@@ -178,11 +178,13 @@ body {
 }
 
 .variant-copy {
-  min-height: 78px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 14px;
+  min-height: 70px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-rows: auto auto;
+  align-content: start;
+  column-gap: 16px;
+  row-gap: 6px;
   padding: 14px;
   border: 1px solid var(--line);
   transition: border-color .2s ease, background-color .2s ease;
@@ -205,14 +207,9 @@ body {
   text-transform: uppercase;
 }
 
-.variant-heading {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 16px;
-}
-
 .variant-price {
+  grid-column: 2;
+  grid-row: 1 / span 2;
   flex: 0 0 auto;
   font-size: 20px;
   line-height: 1;
@@ -220,10 +217,55 @@ body {
 }
 
 .variant-description {
+  grid-column: 1;
+  grid-row: 2;
   color: var(--soft);
   font-size: 11px;
   line-height: 1.35;
   overflow-wrap: break-word;
+}
+
+.product-specs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  margin: 4px 0 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.product-specs div {
+  min-width: 0;
+  padding: 14px 12px;
+  border-right: 1px solid var(--line);
+}
+
+.product-specs div:first-child { padding-left: 0; }
+.product-specs div:last-child { border-right: 0; }
+
+.product-specs dt,
+.product-specs dd,
+.load-disclaimer {
+  font-size: 9px;
+  line-height: 1.4;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.product-specs dt { color: var(--soft); }
+
+.product-specs dd {
+  margin: 6px 0 0;
+  color: var(--ink);
+}
+
+.load-disclaimer {
+  max-width: 520px;
+  margin: 10px 0 0;
+  color: var(--soft);
+  line-height: 1.5;
+  letter-spacing: .04em;
+  text-transform: none;
 }
 
 .buy-availability {
@@ -268,7 +310,7 @@ body {
   .buy-purchase {
     position: absolute;
     right: var(--pad);
-    bottom: 32px;
+    bottom: 0;
     left: var(--pad);
     width: auto;
     margin: 0;
@@ -308,7 +350,7 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 24px;
-  margin: 32px 0 0;
+  margin: 0 0 32px;
 }
 
 .buy-meta div {
@@ -431,4 +473,15 @@ body {
   .variant-options {
     grid-template-columns: 1fr;
   }
+
+  .product-specs { grid-template-columns: 1fr; }
+
+  .product-specs div,
+  .product-specs div:first-child {
+    padding: 12px 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .product-specs div:last-child { border-bottom: 0; }
 }

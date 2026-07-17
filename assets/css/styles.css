@@ -221,20 +221,40 @@
 
     .zoom-controls {
       display: flex;
+      flex-direction: column;
     }
 
-    .model-view-controls button {
+    .model-zoom-controls {
+      position: absolute;
+      z-index: 3;
+      top: clamp(20px, 3vw, 34px);
+      right: var(--pad);
+      pointer-events: auto;
+    }
+
+    .model-view-controls button,
+    .model-zoom-controls button {
       min-width: 52px;
       padding: 13px 18px;
-      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
       font-size: 9px;
       line-height: 1;
       letter-spacing: .11em;
       text-transform: uppercase;
     }
 
-    .model-view-controls button:last-child {
+    .model-view-controls button:last-child,
+    .model-zoom-controls button:last-child {
+      border-bottom: 0;
+    }
+
+    .model-view-controls .zoom-controls button {
       border-right: 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .model-view-controls .zoom-controls button:last-child {
+      border-bottom: 0;
     }
 
     .spin-speed {
@@ -321,6 +341,14 @@
       text-transform: uppercase;
     }
 
+    .configurator-heading > div {
+      width: 100%;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
     .finish-colors {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -372,7 +400,8 @@
     .model-tools button:focus-visible,
     .model-tools input:focus-visible,
     .model-view-controls button:focus-visible,
-    .model-view-controls input:focus-visible {
+    .model-view-controls input:focus-visible,
+    .model-zoom-controls button:focus-visible {
       outline: 2px solid var(--ink);
       outline-offset: 3px;
     }

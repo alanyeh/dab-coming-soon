@@ -65,15 +65,11 @@ function renderVariants(product, checkoutButton, salesEnabled) {
     price.className = "variant-price";
     price.textContent = variant.price || product.price || "";
 
-    const heading = document.createElement("span");
-    heading.className = "variant-heading";
-    heading.append(name, price);
-
     const description = document.createElement("span");
     description.className = "variant-description";
     description.textContent = variant.description;
 
-    copy.append(heading, description);
+    copy.append(name, price, description);
     label.append(input, copy);
     options.append(label);
 
@@ -113,5 +109,5 @@ if (store && productPage) {
   }
 
   productPage.hidden = false;
-  requestAnimationFrame(() => import("/assets/js/model-viewer.js?v=20260717-4"));
+  requestAnimationFrame(() => import("/assets/js/model-viewer.js?v=20260717-5"));
 }
