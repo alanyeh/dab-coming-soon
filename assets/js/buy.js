@@ -34,6 +34,8 @@ function renderVariants(product, checkoutButton, salesEnabled) {
   const pricingNote = document.querySelector("#variant-pricing-note");
   const checkoutLabel = checkoutButton.querySelector("span");
 
+  productPage?.classList.toggle("sales-disabled", !salesEnabled);
+
   function setConfiguratorSize(variant) {
     if (configuratorSize && variant?.name) {
       configuratorSize.value = variant.id;
@@ -100,6 +102,7 @@ function renderVariants(product, checkoutButton, salesEnabled) {
     price.className = "variant-price";
     if (variant.requiresApproval) price.classList.add("variant-price--quote");
     price.textContent = variant.price || product.price || "";
+    if (!salesEnabled) price.setAttribute("aria-label", "Pricing coming soon");
 
     const description = document.createElement("span");
     description.className = "variant-description";

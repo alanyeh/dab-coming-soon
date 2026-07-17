@@ -234,6 +234,11 @@ body {
   letter-spacing: -.03em;
 }
 
+.sales-disabled .variant-price {
+  filter: blur(6px);
+  user-select: none;
+}
+
 .variant-price--quote {
   max-width: 72px;
   font-size: 13px;
