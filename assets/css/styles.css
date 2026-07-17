@@ -1,3 +1,27 @@
+@font-face {
+  font-family: "Lazy Dog";
+  src: url("/assets/fonts/Lazydog.otf") format("opentype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Instrument Sans";
+  src: url("/assets/fonts/InstrumentSans-Regular.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Instrument Sans";
+  src: url("/assets/fonts/InstrumentSans-Medium.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+
 :root {
       --paper: #ffffff;
       --ink: #0b0b0b;
@@ -22,7 +46,7 @@
       margin: 0;
       background: var(--paper);
       color: var(--ink);
-      font-family: Arial, Helvetica, sans-serif;
+      font-family: "Instrument Sans", Arial, Helvetica, sans-serif;
       -webkit-font-smoothing: antialiased;
       text-rendering: geometricPrecision;
     }
@@ -64,7 +88,19 @@
     }
 
     .header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
       border-bottom: 1px solid var(--line);
+    }
+
+    .header .brand {
+      grid-column: 2;
+      justify-self: center;
+    }
+
+    .header .header-meta {
+      grid-column: 3;
+      justify-self: end;
     }
 
     .brand {
@@ -73,10 +109,13 @@
       text-decoration: none;
     }
 
-    .brand img {
-      display: block;
-      width: 79px;
-      height: auto;
+    .brand-wordmark {
+      font-family: "Lazy Dog", Arial, Helvetica, sans-serif;
+      font-size: 39px;
+      font-weight: 400;
+      line-height: .8;
+      letter-spacing: 0;
+      text-transform: none;
     }
 
     .header-meta,
@@ -333,16 +372,20 @@
 
     .configurator-kicker {
       color: var(--soft);
+      font-family: "Lazy Dog", Arial, Helvetica, sans-serif;
+      font-weight: 400;
       font-size: 20px;
-      letter-spacing: -.035em;
+      letter-spacing: 0;
     }
 
     .configurator-heading h2 {
       margin: 5px 0 0;
+      font-family: "Lazy Dog", Arial, Helvetica, sans-serif;
+      font-weight: 400;
       font-size: 20px;
       line-height: 1;
-      letter-spacing: -.035em;
-      text-transform: uppercase;
+      letter-spacing: 0;
+      text-transform: none;
     }
 
     .configurator-heading > div {
@@ -619,7 +662,7 @@
     @media (max-width: 520px) {
       .header,
       .footer { padding-block: 18px; }
-      .brand img { width: 68px; }
+      .brand-wordmark { font-size: 34px; }
       .header-meta { gap: 16px; }
       .header-meta .edition { display: none; }
       .hero-copy { padding-top: 0; }

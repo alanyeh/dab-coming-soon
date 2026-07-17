@@ -31,10 +31,23 @@ function renderVariants(product, checkoutButton, salesEnabled) {
   const options = document.querySelector("#variant-options");
   const variants = Array.isArray(product.variants) ? product.variants : [];
   const configuratorSize = document.querySelector("#configurator-size");
+  const pricingNote = document.querySelector("#variant-pricing-note");
+  const checkoutLabel = checkoutButton.querySelector("span");
 
   function setConfiguratorSize(variant) {
     if (configuratorSize && variant?.name) {
       configuratorSize.textContent = variant.name;
+    }
+  }
+
+  function setVariantState(variant) {
+    setConfiguratorSize(variant);
+    setCheckout(checkoutButton, salesEnabled ? variant.checkoutUrl : "");
+    if (pricingNote) pricingNote.hidden = !variant.requiresApproval;
+    if (checkoutLabel) {
+      checkoutLabel.textContent = variant.requiresApproval
+        ? "Approval required"
+        : "Pre-order";
     }
   }
 
@@ -46,6 +59,7 @@ function renderVariants(product, checkoutButton, salesEnabled) {
   variants.forEach((variant, index) => {
     const label = document.createElement("label");
     label.className = "variant-option";
+    if (variant.requiresApproval) label.classList.add("variant-option--custom");
 
     const input = document.createElement("input");
     input.type = "radio";
@@ -63,6 +77,7 @@ function renderVariants(product, checkoutButton, salesEnabled) {
 
     const price = document.createElement("span");
     price.className = "variant-price";
+    if (variant.requiresApproval) price.classList.add("variant-price--quote");
     price.textContent = variant.price || product.price || "";
 
     const description = document.createElement("span");
@@ -74,8 +89,7 @@ function renderVariants(product, checkoutButton, salesEnabled) {
     options.append(label);
 
     input.addEventListener("change", () => {
-      setConfiguratorSize(variant);
-      setCheckout(checkoutButton, salesEnabled ? variant.checkoutUrl : "");
+      setVariantState(variant);
       window.dispatchEvent(new CustomEvent("dab:model-change", {
         detail: { modelUrl: variant.modelUrl }
       }));
@@ -83,8 +97,7 @@ function renderVariants(product, checkoutButton, salesEnabled) {
   });
 
   const initialVariant = variants[0];
-  setConfiguratorSize(initialVariant);
-  setCheckout(checkoutButton, salesEnabled ? initialVariant.checkoutUrl : "");
+  setVariantState(initialVariant);
   picker.hidden = false;
 }
 

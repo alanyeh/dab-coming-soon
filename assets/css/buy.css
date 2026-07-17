@@ -132,9 +132,11 @@ body {
 
 .buy-title-row h1 {
   margin: 0;
+  font-family: "Lazy Dog", Arial, Helvetica, sans-serif;
+  font-weight: 400;
   font-size: clamp(32px, 4vw, 64px);
   line-height: .94;
-  letter-spacing: -.055em;
+  letter-spacing: 0;
   text-transform: uppercase;
 }
 
@@ -165,7 +167,7 @@ body {
 
 .variant-options {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px;
 }
 
@@ -173,6 +175,10 @@ body {
   position: relative;
   min-width: 0;
   cursor: pointer;
+}
+
+.variant-option--custom {
+  grid-column: 1 / -1;
 }
 
 .variant-option input {
@@ -205,10 +211,12 @@ body {
 }
 
 .variant-name {
-  font-size: 11px;
+  font-family: "Lazy Dog", Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  font-weight: 400;
   line-height: 1.25;
-  letter-spacing: .08em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 .variant-price {
@@ -218,6 +226,20 @@ body {
   font-size: 20px;
   line-height: 1;
   letter-spacing: -.03em;
+}
+
+.variant-price--quote {
+  max-width: 72px;
+  font-size: 13px;
+  line-height: 1.15;
+  text-align: right;
+}
+
+.variant-pricing-note {
+  margin: 10px 0 0;
+  color: var(--soft);
+  font-size: 10px;
+  line-height: 1.45;
 }
 
 .variant-description {
@@ -234,8 +256,6 @@ body {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0;
   margin: 4px 0 0;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
 }
 
 .product-specs div {
