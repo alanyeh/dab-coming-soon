@@ -28,7 +28,7 @@
       --soft: #727272;
       --line: #d8d8d8;
       --pad: clamp(20px, 3vw, 44px);
-      --block-color: #dc9292;
+      --block-color: #000000;
     }
 
     * { box-sizing: border-box; }

@@ -19,7 +19,7 @@ const maximumSpinSpeed = 100;
 const mediumSpinSpeed = Math.sqrt(minimumSpinSpeed * maximumSpinSpeed);
 const blockColor = getComputedStyle(document.documentElement)
   .getPropertyValue("--block-color")
-  .trim() || "#dc9292";
+  .trim() || "#000000";
 
 if (stage && canvas) {
   let renderer;
@@ -58,7 +58,7 @@ if (stage && canvas) {
   scene.add(new THREE.HemisphereLight(0xffffff, 0xcfcfcf, 1.25));
 
   const bodyColor = new THREE.Color(bodyInput?.value || blockColor);
-  const accentColor = new THREE.Color(accentInput?.value || "#443d5e");
+  const accentColor = new THREE.Color(accentInput?.value || "#ffffff");
   const accentDisplayColor = new THREE.Vector3();
 
   function updateAccentDisplayColor(hexColor) {
@@ -70,7 +70,7 @@ if (stage && canvas) {
     );
   }
 
-  updateAccentDisplayColor(accentInput?.value || "#443d5e");
+  updateAccentDisplayColor(accentInput?.value || "#ffffff");
 
   const material = new THREE.MeshStandardMaterial({
     vertexColors: true,
