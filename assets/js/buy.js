@@ -36,7 +36,7 @@ function renderVariants(product, checkoutButton, salesEnabled) {
 
   function setConfiguratorSize(variant) {
     if (configuratorSize && variant?.name) {
-      configuratorSize.textContent = variant.name;
+      configuratorSize.value = variant.id;
     }
   }
 
@@ -54,6 +54,27 @@ function renderVariants(product, checkoutButton, salesEnabled) {
   if (!picker || !options || !variants.length) {
     setCheckout(checkoutButton, salesEnabled ? product.checkoutUrl : "");
     return;
+  }
+
+  if (configuratorSize) {
+    const selectorOptions = variants.map((variant) => {
+      const option = document.createElement("option");
+      option.value = variant.id;
+      option.textContent = variant.name;
+      return option;
+    });
+
+    configuratorSize.replaceChildren(...selectorOptions);
+    configuratorSize.disabled = variants.length < 2;
+    configuratorSize.addEventListener("change", () => {
+      const matchingInput = Array.from(options.querySelectorAll('input[name="hold-type"]'))
+        .find((input) => input.value === configuratorSize.value);
+
+      if (matchingInput) {
+        matchingInput.checked = true;
+        matchingInput.dispatchEvent(new Event("change", { bubbles: true }));
+      }
+    });
   }
 
   variants.forEach((variant, index) => {
@@ -122,5 +143,5 @@ if (store && productPage) {
   }
 
   productPage.hidden = false;
-  requestAnimationFrame(() => import("/assets/js/model-viewer.js?v=20260717-6"));
+  requestAnimationFrame(() => import("/assets/js/model-viewer.js?v=20260717-9"));
 }

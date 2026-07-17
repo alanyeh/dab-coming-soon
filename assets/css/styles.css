@@ -237,7 +237,8 @@
     }
 
     .model-tools button,
-    .model-tools input { pointer-events: auto; }
+    .model-tools input,
+    .model-tools select { pointer-events: auto; }
 
     .model-view-controls {
       position: absolute;
@@ -379,6 +380,23 @@
       font-weight: 400;
       font-size: 20px;
       letter-spacing: 0;
+    }
+
+    select.configurator-kicker {
+      max-width: 52%;
+      margin: 0;
+      padding: 0 2px 2px 0;
+      border: 0;
+      border-bottom: 1px solid var(--line);
+      border-radius: 0;
+      color: var(--soft);
+      background: transparent;
+      cursor: pointer;
+    }
+
+    select.configurator-kicker:disabled {
+      cursor: default;
+      opacity: 1;
     }
 
     .configurator-heading h2 {

@@ -43,10 +43,16 @@ if (stage && canvas) {
   const controls = new OrbitControls(camera, canvas);
   controls.enableDamping = true;
   controls.enablePan = false;
+  controls.touches.ONE = THREE.TOUCH.PAN;
+  controls.touches.TWO = THREE.TOUCH.DOLLY_ROTATE;
   controls.minDistance = 2.5;
   controls.maxDistance = 8;
   controls.autoRotate = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   controls.autoRotateSpeed = mediumSpinSpeed;
+
+  canvas.addEventListener("touchmove", (event) => {
+    if (event.touches.length > 1) event.preventDefault();
+  }, { passive: false });
 
   const keyLight = new THREE.DirectionalLight(0xffffff, 1.9);
   keyLight.position.set(3, 4, 5);
