@@ -40,10 +40,16 @@ body {
   border: 0;
 }
 
+.buy-media .model-view-controls {
+  top: 20px;
+  right: 20px;
+  left: 20px;
+}
+
 .buy-media .model-stage > .model-tools {
   top: auto;
-  bottom: 32px;
-  left: 32px;
+  bottom: max(20px, env(safe-area-inset-bottom));
+  left: 20px;
 }
 
 .buy-media .model-stage > .model-tools .model-configurator {
@@ -342,6 +348,56 @@ body {
   }
 }
 
+@media (min-width: 821px) and (max-width: 1100px) {
+  .buy-details {
+    padding: 28px;
+  }
+
+  .variant-options {
+    grid-template-columns: 1fr;
+  }
+
+  .variant-option--custom {
+    grid-column: auto;
+  }
+
+  .variant-price {
+    white-space: nowrap;
+  }
+
+  .variant-price--quote {
+    max-width: 92px;
+    white-space: normal;
+    overflow-wrap: break-word;
+  }
+
+  .product-specs {
+    grid-template-columns: 1fr;
+  }
+
+  .product-specs div,
+  .product-specs div:first-child {
+    padding: 12px 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .product-specs div:last-child {
+    border-bottom: 0;
+  }
+
+  .buy-meta {
+    grid-template-columns: 1fr;
+  }
+
+  .buy-purchase {
+    position: static;
+    width: 100%;
+    margin-top: 0;
+    padding-top: 40px;
+  }
+}
+
 .buy-button span:last-child {
   transition: transform .2s ease;
 }
@@ -433,7 +489,8 @@ body {
   }
 
   .buy-media .model-stage > .model-tools {
-    bottom: 112px;
+    top: auto;
+    bottom: max(20px, env(safe-area-inset-bottom));
     left: 20px;
   }
 
