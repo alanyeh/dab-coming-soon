@@ -688,8 +688,12 @@
       }
       .color-value { display: none; }
       .model-view-controls {
+        left: var(--pad);
         right: var(--pad);
         bottom: 18px;
+        flex-direction: row-reverse;
+        align-items: flex-end;
+        justify-content: space-between;
       }
       .configurator-hint { margin-top: 10px; }
       .signup-panel { min-height: 560px; }
