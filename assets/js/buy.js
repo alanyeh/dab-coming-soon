@@ -45,9 +45,9 @@ function renderVariants(product, checkoutButton, salesEnabled) {
     setCheckout(checkoutButton, salesEnabled ? variant.checkoutUrl : "");
     if (pricingNote) pricingNote.hidden = !variant.requiresApproval;
     if (checkoutLabel) {
-      checkoutLabel.textContent = variant.requiresApproval
-        ? "Approval required"
-        : "Pre-order";
+      checkoutLabel.textContent = salesEnabled
+        ? (variant.requiresApproval ? "Approval required" : "Pre-order")
+        : "Coming soon";
     }
   }
 
