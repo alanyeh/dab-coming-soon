@@ -1,7 +1,7 @@
 window.DAB_STORE = Object.freeze({
   enabled: true,
   product: Object.freeze({
-    name: "DAB Block 01",
+    name: "DAB BLOCKS",
     eyebrow: "Limited first run",
     price: "",
     shipping: "Shipping details announced at launch.",
@@ -9,7 +9,7 @@ window.DAB_STORE = Object.freeze({
     variants: Object.freeze([
       Object.freeze({
         id: "hold-type-01",
-        name: "Large Dab",
+        name: "DAB BLOCK 02",
         description: "20 mm and 25 mm edges",
         price: "$40.00",
         modelUrl: "/assets/models/DAB-BLOCK-LARGE.3mf?v=20260717-3",
@@ -17,7 +17,7 @@ window.DAB_STORE = Object.freeze({
       }),
       Object.freeze({
         id: "hold-type-02",
-        name: "Small Dab",
+        name: "DAB BLOCK 01",
         description: "20 mm edge",
         price: "$30.00",
         modelUrl: "/assets/models/DAB-BLOCK-01.3mf",
