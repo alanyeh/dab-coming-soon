@@ -143,5 +143,5 @@ if (store && productPage) {
   }
 
   productPage.hidden = false;
-  requestAnimationFrame(() => import("/assets/js/model-viewer.js?v=20260717-9"));
+  requestAnimationFrame(() => import("/assets/js/model-viewer.js?v=20260717-11"));
 }
