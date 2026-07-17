@@ -25,7 +25,7 @@ window.DAB_STORE = Object.freeze({
       }),
       Object.freeze({
         id: "hold-type-custom",
-        name: "Custom",
+        name: "Dab Block Custom",
         description: "Made to your approved specifications",
         price: "Set after approval",
         modelUrl: "/assets/models/DAB-BLOCK-LARGE.3mf?v=20260717-3",
