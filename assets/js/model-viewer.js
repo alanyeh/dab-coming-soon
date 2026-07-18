@@ -6,10 +6,29 @@ import { strFromU8, unzipSync } from "three/addons/libs/fflate.module.js";
 const stage = document.querySelector("#model-stage");
 const canvas = document.querySelector("#model-canvas");
 const status = document.querySelector("#model-status");
-const bodyInput = document.querySelector("#body-color");
-const accentInput = document.querySelector("#accent-color");
-const bodyValue = document.querySelector("#body-color-value");
-const accentValue = document.querySelector("#accent-color-value");
+const bodyPalette = document.querySelector("#body-color-palette");
+const accentPalette = document.querySelector("#accent-color-palette");
+
+if (bodyPalette && accentPalette) {
+  accentPalette.querySelectorAll(".filament-swatch").forEach((swatch) => {
+    const clone = swatch.cloneNode(true);
+    const input = clone.querySelector("input");
+    if (input) {
+      input.name = "body-color";
+      input.checked = input.value.toUpperCase() === "#373431";
+    }
+    bodyPalette.append(clone);
+  });
+}
+
+const bodyInputs = Array.from(document.querySelectorAll('input[name="body-color"]'));
+const accentInputs = Array.from(document.querySelectorAll('input[name="accent-color"]'));
+const bodyCurrent = document.querySelector("#body-color-toggle .filament-current");
+const accentCurrent = document.querySelector("#accent-color-toggle .filament-current");
+const bodyToggle = document.querySelector("#body-color-toggle");
+const accentToggle = document.querySelector("#accent-color-toggle");
+const bodyName = document.querySelector("#body-color-name");
+const accentName = document.querySelector("#accent-color-name");
 const zoomOut = document.querySelector("#zoom-out");
 const zoomIn = document.querySelector("#zoom-in");
 const spinSpeed = document.querySelector("#spin-speed");
@@ -63,8 +82,10 @@ if (stage && canvas) {
   scene.add(fillLight);
   scene.add(new THREE.HemisphereLight(0xffffff, 0xcfcfcf, 1.25));
 
-  const bodyColor = new THREE.Color(bodyInput?.value || blockColor);
-  const accentColor = new THREE.Color(accentInput?.value || "#ffffff");
+  const selectedBody = () => bodyInputs.find((input) => input.checked)?.value || blockColor;
+  const selectedAccent = () => accentInputs.find((input) => input.checked)?.value || "#ffffff";
+  const bodyColor = new THREE.Color(selectedBody());
+  const accentColor = new THREE.Color(selectedAccent());
   const accentDisplayColor = new THREE.Vector3();
 
   function updateAccentDisplayColor(hexColor) {
@@ -76,7 +97,7 @@ if (stage && canvas) {
     );
   }
 
-  updateAccentDisplayColor(accentInput?.value || "#ffffff");
+  updateAccentDisplayColor(selectedAccent());
 
   const material = new THREE.MeshStandardMaterial({
     vertexColors: true,
@@ -233,17 +254,41 @@ if (stage && canvas) {
     controls.update();
   }
 
-  bodyInput?.addEventListener("input", () => {
-    bodyColor.set(bodyInput.value);
-    if (bodyValue) bodyValue.textContent = bodyInput.value.toUpperCase();
-    updateVertexColors();
+  bodyInputs.forEach((input) => {
+    input.addEventListener("change", () => {
+      if (!input.checked) return;
+      bodyColor.set(input.value);
+      bodyCurrent?.style.setProperty("--swatch-color", input.value);
+      if (bodyName) bodyName.textContent = input.closest("label")?.title || "Selected color";
+      updateVertexColors();
+      if (bodyPalette) bodyPalette.hidden = true;
+      bodyToggle?.setAttribute("aria-expanded", "false");
+    });
   });
 
-  accentInput?.addEventListener("input", () => {
-    accentColor.set(accentInput.value);
-    updateAccentDisplayColor(accentInput.value);
-    if (accentValue) accentValue.textContent = accentInput.value.toUpperCase();
-    updateVertexColors();
+  accentInputs.forEach((input) => {
+    input.addEventListener("change", () => {
+      if (!input.checked) return;
+      accentColor.set(input.value);
+      updateAccentDisplayColor(input.value);
+      accentCurrent?.style.setProperty("--swatch-color", input.value);
+      if (accentName) accentName.textContent = input.closest("label")?.title || "Selected color";
+      updateVertexColors();
+      if (accentPalette) accentPalette.hidden = true;
+      accentToggle?.setAttribute("aria-expanded", "false");
+    });
+  });
+
+  accentToggle?.addEventListener("click", () => {
+    if (!accentPalette) return;
+    accentPalette.hidden = !accentPalette.hidden;
+    accentToggle.setAttribute("aria-expanded", String(!accentPalette.hidden));
+  });
+
+  bodyToggle?.addEventListener("click", () => {
+    if (!bodyPalette) return;
+    bodyPalette.hidden = !bodyPalette.hidden;
+    bodyToggle.setAttribute("aria-expanded", String(!bodyPalette.hidden));
   });
 
   zoomOut?.addEventListener("click", () => zoom(1.18));

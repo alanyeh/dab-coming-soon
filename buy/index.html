@@ -6,8 +6,8 @@
   <meta name="theme-color" content="#ffffff" />
   <meta name="description" content="Dab Block — first drop." />
   <title>DAB — Block</title>
-  <link rel="stylesheet" href="/assets/css/styles.css?v=20260717-23" />
-  <link rel="stylesheet" href="/assets/css/buy.css?v=20260717-22" />
+  <link rel="stylesheet" href="/assets/css/styles.css?v=20260718-28" />
+  <link rel="stylesheet" href="/assets/css/buy.css?v=20260718-29" />
 </head>
 <body class="store-page">
   <main class="store-shell">
@@ -33,8 +33,47 @@
                 </div>
               </div>
               <div class="finish-colors">
-                <label class="finish-color" for="body-color"><span>Primary</span><span class="color-value" id="body-color-value">#000000</span><input id="body-color" type="color" value="#000000" aria-label="Primary color" /></label>
-                <label class="finish-color" for="accent-color"><span>Accent</span><span class="color-value" id="accent-color-value">#FFFFFF</span><input id="accent-color" type="color" value="#ffffff" aria-label="Accent color" /></label>
+                <div class="finish-color finish-color--palette">
+                  <span>Primary</span>
+                  <span class="accent-control">
+                    <span class="color-value" id="body-color-name">Black</span>
+                    <span class="filament-picker">
+                      <button class="filament-toggle" id="body-color-toggle" type="button" aria-label="Choose primary color" aria-expanded="false"><span class="filament-current" style="--swatch-color: #373431"></span></button>
+                      <span class="filament-palette" id="body-color-palette" role="radiogroup" aria-label="Available primary colors" hidden></span>
+                    </span>
+                  </span>
+                </div>
+                <div class="finish-color finish-color--palette">
+                  <span>Accent</span>
+                  <span class="accent-control">
+                    <span class="color-value" id="accent-color-name">Ivory</span>
+                    <span class="filament-picker">
+                      <button class="filament-toggle" id="accent-color-toggle" type="button" aria-label="Choose accent color" aria-expanded="false"><span class="filament-current" style="--swatch-color: #F1EEE7"></span></button>
+                      <span class="filament-palette" id="accent-color-palette" role="radiogroup" aria-label="Available accent colors" hidden>
+                    <label class="filament-swatch" title="Ivory"><input type="radio" name="accent-color" value="#F1EEE7" checked /><span style="--swatch-color: #F1EEE7"></span><span class="sr-only">ivory</span></label>
+                    <label class="filament-swatch" title="Cream"><input type="radio" name="accent-color" value="#E8D5C5" /><span style="--swatch-color: #E8D5C5"></span><span class="sr-only">cream</span></label>
+                    <label class="filament-swatch" title="Warm White"><input type="radio" name="accent-color" value="#D8D4CF" /><span style="--swatch-color: #D8D4CF"></span><span class="sr-only">warm white</span></label>
+                    <label class="filament-swatch" title="Beige"><input type="radio" name="accent-color" value="#AAA59C" /><span style="--swatch-color: #AAA59C"></span><span class="sr-only">beige</span></label>
+                    <label class="filament-swatch" title="Yellow"><input type="radio" name="accent-color" value="#F5DF19" /><span style="--swatch-color: #F5DF19"></span><span class="sr-only">yellow</span></label>
+                    <label class="filament-swatch" title="Orange"><input type="radio" name="accent-color" value="#F46B1B" /><span style="--swatch-color: #F46B1B"></span><span class="sr-only">orange</span></label>
+                    <label class="filament-swatch" title="Bright Green"><input type="radio" name="accent-color" value="#05BE67" /><span style="--swatch-color: #05BE67"></span><span class="sr-only">bright green</span></label>
+                    <label class="filament-swatch" title="Forest Green"><input type="radio" name="accent-color" value="#147052" /><span style="--swatch-color: #147052"></span><span class="sr-only">forest green</span></label>
+                    <label class="filament-swatch" title="Pink"><input type="radio" name="accent-color" value="#F34E77" /><span style="--swatch-color: #F34E77"></span><span class="sr-only">pink</span></label>
+                    <label class="filament-swatch" title="Magenta"><input type="radio" name="accent-color" value="#D92C83" /><span style="--swatch-color: #D92C83"></span><span class="sr-only">magenta</span></label>
+                    <label class="filament-swatch" title="Purple"><input type="radio" name="accent-color" value="#67489B" /><span style="--swatch-color: #67489B"></span><span class="sr-only">purple</span></label>
+                    <label class="filament-swatch" title="Red"><input type="radio" name="accent-color" value="#E12929" /><span style="--swatch-color: #E12929"></span><span class="sr-only">red</span></label>
+                    <label class="filament-swatch" title="Slate Gray"><input type="radio" name="accent-color" value="#66717D" /><span style="--swatch-color: #66717D"></span><span class="sr-only">slate gray</span></label>
+                    <label class="filament-swatch" title="Black"><input type="radio" name="accent-color" value="#373431" /><span style="--swatch-color: #373431"></span><span class="sr-only">black</span></label>
+                    <label class="filament-swatch" title="Blue"><input type="radio" name="accent-color" value="#1595D2" /><span style="--swatch-color: #1595D2"></span><span class="sr-only">blue</span></label>
+                    <label class="filament-swatch" title="Royal Blue"><input type="radio" name="accent-color" value="#263E91" /><span style="--swatch-color: #263E91"></span><span class="sr-only">royal blue</span></label>
+                    <label class="filament-swatch" title="Silver"><input type="radio" name="accent-color" value="#92928D" /><span style="--swatch-color: #92928D"></span><span class="sr-only">silver</span></label>
+                    <label class="filament-swatch" title="Gold"><input type="radio" name="accent-color" value="#D49B42" /><span style="--swatch-color: #D49B42"></span><span class="sr-only">gold</span></label>
+                    <label class="filament-swatch" title="Bronze"><input type="radio" name="accent-color" value="#745535" /><span style="--swatch-color: #745535"></span><span class="sr-only">bronze</span></label>
+                    <label class="filament-swatch" title="Copper"><input type="radio" name="accent-color" value="#A94A2C" /><span style="--swatch-color: #A94A2C"></span><span class="sr-only">copper</span></label>
+                      </span>
+                    </span>
+                  </span>
+                </div>
               </div>
             </section>
           </div>
@@ -64,6 +103,7 @@
         <dl class="product-specs" aria-label="Customization and product details">
           <div><dt>Finish</dt><dd>Choose from available colors</dd></div>
           <div><dt>Edge depth</dt><dd>Custom sizes available</dd></div>
+          <div><dt>Rope</dt><dd>5 mm black nylon accessory cord</dd></div>
           <div><dt>Estimated max static load</dt><dd>100 kg / 220 lb*</dd></div>
         </dl>
         <p class="load-disclaimer">*Placeholder estimate pending physical testing. Not a certified load or life-safety rating.</p>
@@ -94,7 +134,7 @@
   </main>
 
   <script src="/assets/js/store-config.js?v=20260717-10"></script>
-  <script src="/assets/js/buy.js?v=20260717-13" defer></script>
+  <script src="/assets/js/buy.js?v=20260718-17" defer></script>
   <script type="importmap">
     {
       "imports": {

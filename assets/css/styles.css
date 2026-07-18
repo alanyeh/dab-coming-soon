@@ -450,6 +450,116 @@
     .finish-color input[type="color"]::-webkit-color-swatch { border: 2px solid var(--paper); border-radius: 50%; }
     .finish-color input[type="color"]::-moz-color-swatch { border: 2px solid var(--paper); border-radius: 50%; }
 
+    .finish-color select {
+      min-width: 0;
+      max-width: 118px;
+      padding: 7px 24px 7px 8px;
+      border: 1px solid var(--line);
+      border-radius: 0;
+      color: var(--ink);
+      background-color: var(--paper);
+      font: inherit;
+      font-size: 10px;
+      cursor: pointer;
+    }
+
+    .finish-color--palette {
+      display: flex;
+      cursor: default;
+    }
+
+    .filament-picker {
+      position: relative;
+    }
+
+    .accent-control {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-left: auto;
+    }
+
+    .filament-toggle {
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .filament-current {
+      width: 28px;
+      height: 28px;
+      display: block;
+      border: 1px solid rgba(0, 0, 0, .16);
+      border-radius: 50%;
+      background: var(--swatch-color);
+    }
+
+    .filament-toggle[aria-expanded="true"] {
+      outline: 2px solid var(--ink);
+      outline-offset: 2px;
+    }
+
+    .filament-palette {
+      position: absolute;
+      right: -10px;
+      bottom: calc(100% + 12px);
+      z-index: 20;
+      display: grid;
+      grid-template-columns: repeat(5, 24px);
+      gap: 7px;
+      width: max-content;
+      padding: 14px;
+      border: 1px solid var(--ink);
+      background: var(--paper);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, .12);
+      pointer-events: auto;
+    }
+
+    .filament-palette[hidden] { display: none; }
+
+    .filament-swatch {
+      position: relative;
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      pointer-events: auto;
+    }
+
+    .filament-swatch input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .filament-swatch > span:not(.sr-only) {
+      display: block;
+      width: 24px;
+      height: 24px;
+      border: 1px solid rgba(0, 0, 0, .16);
+      border-radius: 50%;
+      background: var(--swatch-color);
+      transition: box-shadow .15s ease, transform .15s ease;
+    }
+
+    .filament-swatch input:checked + span {
+      box-shadow: 0 0 0 2px var(--paper), 0 0 0 4px var(--ink);
+    }
+
+    .filament-swatch input:focus-visible + span {
+      outline: 2px solid var(--ink);
+      outline-offset: 3px;
+    }
+
+    .filament-swatch:hover > span:not(.sr-only) {
+      transform: scale(1.08);
+    }
+
     .color-value {
       margin-left: auto;
       color: var(--soft);
