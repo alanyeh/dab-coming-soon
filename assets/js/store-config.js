@@ -12,7 +12,7 @@ window.DAB_STORE = Object.freeze({
         name: "DAB BLOCK 02",
         description: "20 mm and 25 mm edges",
         price: "$40.00",
-        modelUrl: "/assets/models/DAB-BLOCK-LARGE.3mf?v=20260717-3",
+        modelUrl: "/assets/models/DAB-BLOCK-LARGE.3mf?v=20260720-1",
         checkoutUrl: "https://checkout.dabclimbing.com/b/cNi00l9lb1C9fbkd334wM00"
       }),
       Object.freeze({
@@ -28,7 +28,7 @@ window.DAB_STORE = Object.freeze({
         name: "Dab Block Custom",
         description: "Made to your approved specifications",
         price: "Set after approval",
-        modelUrl: "/assets/models/DAB-BLOCK-LARGE.3mf?v=20260717-3",
+        modelUrl: "/assets/models/DAB-BLOCK-LARGE.3mf?v=20260720-1",
         checkoutUrl: "",
         requiresApproval: true
       })

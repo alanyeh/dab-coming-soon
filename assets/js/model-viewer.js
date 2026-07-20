@@ -135,18 +135,56 @@ if (stage && canvas) {
 
   function readAccentMask(buffer) {
     const files = unzipSync(new Uint8Array(buffer));
-    const modelPath = Object.keys(files).find((name) => name.toLowerCase().endsWith(".model"));
-    if (!modelPath) return null;
+    for (const [name, contents] of Object.entries(files)) {
+      if (!name.toLowerCase().endsWith(".model")) continue;
+      const document = new DOMParser().parseFromString(strFromU8(contents), "application/xml");
+      const triangles = document.getElementsByTagName("triangle");
+      if (!triangles.length) continue;
 
-    const document = new DOMParser().parseFromString(strFromU8(files[modelPath]), "application/xml");
-    const triangles = document.getElementsByTagName("triangle");
-    const mask = new Uint8Array(triangles.length);
-
-    for (let index = 0; index < triangles.length; index += 1) {
-      if (triangles[index].hasAttribute("paint_color")) mask[index] = 1;
+      const mask = new Uint8Array(triangles.length);
+      for (let index = 0; index < triangles.length; index += 1) {
+        if (triangles[index].hasAttribute("paint_color")) mask[index] = 1;
+      }
+      return mask;
     }
 
-    return mask;
+    return null;
+  }
+
+  function readPackagedMesh(buffer) {
+    const files = unzipSync(new Uint8Array(buffer));
+
+    for (const [name, contents] of Object.entries(files)) {
+      if (!name.toLowerCase().endsWith(".model")) continue;
+      const document = new DOMParser().parseFromString(strFromU8(contents), "application/xml");
+      const mesh = document.querySelector("mesh");
+      if (!mesh) continue;
+
+      const vertexNodes = mesh.querySelectorAll("vertices vertex");
+      const triangleNodes = mesh.querySelectorAll("triangles triangle");
+      if (!vertexNodes.length || !triangleNodes.length) continue;
+
+      const positions = new Float32Array(vertexNodes.length * 3);
+      vertexNodes.forEach((vertex, index) => {
+        positions[(index * 3)] = Number.parseFloat(vertex.getAttribute("x"));
+        positions[(index * 3) + 1] = Number.parseFloat(vertex.getAttribute("y"));
+        positions[(index * 3) + 2] = Number.parseFloat(vertex.getAttribute("z"));
+      });
+
+      const indices = new Uint32Array(triangleNodes.length * 3);
+      triangleNodes.forEach((triangle, index) => {
+        indices[(index * 3)] = Number.parseInt(triangle.getAttribute("v1"), 10);
+        indices[(index * 3) + 1] = Number.parseInt(triangle.getAttribute("v2"), 10);
+        indices[(index * 3) + 2] = Number.parseInt(triangle.getAttribute("v3"), 10);
+      });
+
+      const geometry = new THREE.BufferGeometry();
+      geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+      geometry.setIndex(new THREE.BufferAttribute(indices, 1));
+      return geometry;
+    }
+
+    return null;
   }
 
   function updateVertexColors() {
@@ -201,14 +239,19 @@ if (stage && canvas) {
       const response = await fetch(url);
       if (!response.ok) throw new Error(`Model request failed: ${response.status}`);
       const buffer = await response.arrayBuffer();
-      const loadedModel = new ThreeMFLoader().parse(buffer);
-      loadedModel.updateMatrixWorld(true);
+      let geometry;
+      try {
+        const loadedModel = new ThreeMFLoader().parse(buffer);
+        loadedModel.updateMatrixWorld(true);
+        const sourceMesh = loadedModel.getObjectByProperty("isMesh", true);
+        if (!sourceMesh) throw new Error("3MF contains no mesh");
+        geometry = sourceMesh.geometry.clone();
+        geometry.applyMatrix4(sourceMesh.matrixWorld);
+      } catch (loaderError) {
+        geometry = readPackagedMesh(buffer);
+        if (!geometry) throw loaderError;
+      }
 
-      const sourceMesh = loadedModel.getObjectByProperty("isMesh", true);
-      if (!sourceMesh) throw new Error("3MF contains no mesh");
-
-      let geometry = sourceMesh.geometry.clone();
-      geometry.applyMatrix4(sourceMesh.matrixWorld);
       geometry = geometry.toNonIndexed();
       geometry.computeVertexNormals();
 
